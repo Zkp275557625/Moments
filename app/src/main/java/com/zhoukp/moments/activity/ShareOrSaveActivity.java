@@ -45,6 +45,10 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
      * 图片是否来源于网络 false-->来源于assets文件夹  true-->来源于网络
      */
     private boolean isFromNet;
+    /**
+     * 分享图片的链接
+     */
+    private String shareImgUrl = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,11 +87,17 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
             case R.id.tv_save:
                 //保存逻辑的处理
                 saveImage();
+                Toast.makeText(ShareOrSaveActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case R.id.tv_share:
                 //分享逻辑的处理
-                ShareUtils.shareSingleImage(ShareOrSaveActivity.this, imageUrl);
+                File file = new File(shareImgUrl);
+                if (!file.exists()) {
+                    saveImage();
+                }
+                ShareUtils.shareSingleImage(ShareOrSaveActivity.this, shareImgUrl);
+                finish();
                 break;
             case R.id.text_cancle:
                 //取消逻辑的处理
@@ -109,14 +119,15 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
                 InputStream inputStream = assetManager.open(imageUrl);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-                File file = new File(Environment.getExternalStorageDirectory()
-                        + File.separator + "DCIM/" + getCurrentTime() + ".jpg");
+                shareImgUrl = Environment.getExternalStorageDirectory()
+                        + File.separator + "DCIM/" + getCurrentTime() + ".jpg";
+
+                File file = new File(shareImgUrl);
 
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();
                 }
 
-                //file.createNewFile();
                 FileOutputStream fOut = new FileOutputStream(file);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
                 fOut.flush();
@@ -125,8 +136,6 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
                 //保存图片后发送广播通知更新数据库
                 Uri uri = Uri.fromFile(file);
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-
-                Toast.makeText(ShareOrSaveActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -147,14 +156,15 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
                 InputStream is = conn.getInputStream();
                 bitmap = BitmapFactory.decodeStream(is);
 
-                File file = new File(Environment.getExternalStorageDirectory()
-                        + File.separator + "DCIM/" + getCurrentTime() + ".jpg");
+                shareImgUrl = Environment.getExternalStorageDirectory()
+                        + File.separator + "DCIM/" + getCurrentTime() + ".jpg";
+
+                File file = new File(shareImgUrl);
 
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();
                 }
 
-                // file.createNewFile();
                 FileOutputStream fOut = new FileOutputStream(file);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
                 fOut.flush();
@@ -163,8 +173,6 @@ public class ShareOrSaveActivity extends Activity implements View.OnClickListene
                 //保存图片后发送广播通知更新数据库
                 Uri uri = Uri.fromFile(file);
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-
-                Toast.makeText(ShareOrSaveActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

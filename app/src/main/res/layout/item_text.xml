@@ -62,91 +62,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="10dp" />
 
-    <!--图片或者视频-->
-    <RelativeLayout
-        android:id="@+id/rl_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_title"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="10dp">
-
-        <!--图片-->
-        <com.zhoukp.moments.view.NineGridlayout
-            android:id="@+id/imgs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <!--视频-->
-        <RelativeLayout
-            android:id="@+id/rl_video"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible">
-
-            <VideoView
-                android:id="@+id/videoview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_video_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/icon_play"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/ll_progress"
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:layout_alignParentBottom="true"
-                android:background="#44000000"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:visibility="gone">
-
-                <SeekBar
-                    android:id="@+id/seekbar"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_progress"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_toRightOf="@id/seekbar"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
     <!--功能区-->
     <RelativeLayout
         android:id="@+id/rl_scan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_content"
+        android:layout_below="@id/viewstub"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -274,6 +195,5 @@
             android:background="@drawable/edittext_bg_selector" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

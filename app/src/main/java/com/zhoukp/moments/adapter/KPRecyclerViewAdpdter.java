@@ -34,10 +34,7 @@ import com.zhoukp.moments.view.NineGridlayout;
 import com.zhoukp.moments.view.RoundRectImageView;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.Locale;
 
 /**
  * 作者：zhoukp
@@ -381,6 +378,4 @@ public class KPRecyclerViewAdpdter extends RecyclerView.Adapter<KPRecyclerViewAd
             });
         }
     }
-
-
 }

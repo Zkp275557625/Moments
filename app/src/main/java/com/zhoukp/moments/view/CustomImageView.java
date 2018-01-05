@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.zhoukp.moments.activity.MainActivity;
 import com.zhoukp.moments.activity.PictureActivity;
@@ -48,7 +49,7 @@ public class CustomImageView extends ImageView {
                 }
                 Intent intent = new Intent(context, PictureActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("isFromNet", url.contains("file:///android_asset/") ? false : true);
+                intent.putExtra("isFromNet", !url.contains("file:///android_asset/"));
                 context.startActivity(intent);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -76,7 +77,9 @@ public class CustomImageView extends ImageView {
 
     @Override
     public void onDetachedFromWindow() {
-        Picasso.with(getContext()).cancelRequest(this);
+//        Picasso.with(getContext()).cancelRequest(this);
+        //清除Glide所有图片加载请求
+        Glide.clear(this);
         isAttachedToWindow = false;
         setImageBitmap(null);
         super.onDetachedFromWindow();
@@ -87,7 +90,8 @@ public class CustomImageView extends ImageView {
         if (!TextUtils.isEmpty(url)) {
             this.url = url;
             if (isAttachedToWindow) {
-                Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
+                //使用Glide加载图片
+                Glide.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
             }
         }
     }

@@ -8,13 +8,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhoukp.moments.R;
 import com.zhoukp.moments.adapter.KPRecyclerViewAdpdter;
+import com.zhoukp.moments.adapter.KPRecyclerViewAdpdter2;
+import com.zhoukp.moments.adapter.viewholder.BaseViewHolder;
 import com.zhoukp.moments.bean.Image;
 import com.zhoukp.moments.bean.ItemType;
 import com.zhoukp.moments.utils.LogUtil;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerview;
     private ArrayList<ItemType> datas;
     private KPRecyclerViewAdpdter adpdter;
+    private KPRecyclerViewAdpdter2 adpdter2;
     private LinearLayoutManager manager;
 
     @Override
@@ -73,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 , {"file:///android_asset/img7.jpg", "250", "250"}
                 , {"http://img.blog.csdn.net/20161119235312178?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center", "1280", "800"}
         };
-        String url = "android.resource://" + getPackageName() + "/" + R.raw.video;
-//        String url = "http://flashmedia.eastday.com/newdate/news/2016-11/shznews1125-19.mp4";
+//        String url = "android.resource://" + getPackageName() + "/" + R.raw.video;
+        String url = "http://dvideo.spriteapp.cn/video/2018/0105/5f004944-f1b5-11e7-a1f8-1866daeb0df1cutblack_wpd.mp4";
+        String thumbnail = "http://dimg.spriteapp.cn/picture/2018/0105/5f004944-f1b5-11e7-a1f8-1866daeb0df1cutblack_wpd.jpg";
 
         datas = new ArrayList<>();
 
@@ -97,18 +100,18 @@ public class MainActivity extends AppCompatActivity {
         itemTypeVideo.setType(3);
         itemTypeVideo.setTitle(title);
         itemTypeVideo.setVideoUrl(url);
+        itemTypeVideo.setThumbnailUrl(thumbnail);
 
         for (int i = 0; i < 3; i++) {
             datas.add(itemTypeTitle);
             datas.add(itemTypeImgs);
-//            if (i == 0) {
-//                datas.add(itemTypeVideo);
-//            }
             datas.add(itemTypeVideo);
         }
 
-        adpdter = new KPRecyclerViewAdpdter(MainActivity.this, datas);
-        recyclerview.setAdapter(adpdter);
+//        adpdter = new KPRecyclerViewAdpdter(MainActivity.this, datas);
+        adpdter2 = new KPRecyclerViewAdpdter2(MainActivity.this, datas);
+
+        recyclerview.setAdapter(adpdter2);
     }
 
     /**
@@ -154,19 +157,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            KPRecyclerViewAdpdter.KPViewHolder viewHolder = null;
+            BaseViewHolder viewHolder = null;
             switch (requestCode) {
                 case 1:
                     //提交的评论逻辑处理
                     String text = data.getStringExtra("text");
                     int position = Integer.parseInt(data.getStringExtra("position"));
                     LogUtil.e(position + "," + text);
-                    viewHolder = (KPRecyclerViewAdpdter.KPViewHolder) recyclerview.findViewHolderForLayoutPosition(position);
+                    viewHolder = (BaseViewHolder) recyclerview.findViewHolderForLayoutPosition(position);
                     viewHolder.tv_comment.setText(Integer.parseInt(viewHolder.tv_comment.getText().toString()) + 1 + "");
 
                     TextView textView = new TextView(MainActivity.this);
                     textView.setTextSize(14);
-                    //textView.setTextColor(MainActivity.this.getResources().getColor(R.color.black));
                     String str = "<font color='#29b6f6'>" + viewHolder.tv_name.getText().toString() + "：</font>" +
                             "<font color='#000000'>" + text + "</font>";
                     textView.setText(Html.fromHtml(str));

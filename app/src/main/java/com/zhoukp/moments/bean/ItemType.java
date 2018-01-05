@@ -10,14 +10,26 @@ import java.util.ArrayList;
  */
 
 public class ItemType {
-    //1-->文本  2-->图片 3-->视频
+    /**
+     * 1-->文本  2-->图片 3-->视频
+     */
     private int type;
-    //标题
+    /**
+     * 标题
+     */
     private String title;
-    //item中的图片
+    /**
+     * item中的图片
+     */
     private ArrayList<Image> images;
-    //视频的链接
+    /**
+     * 视频的链接
+     */
     private String videoUrl;
+    /**
+     * 视频缩略图链接
+     */
+    private String thumbnailUrl;
 
     public int getType() {
         return type;
@@ -49,5 +61,13 @@ public class ItemType {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }
