@@ -12,7 +12,6 @@ import com.zhoukp.moments.adapter.viewholder.ImageViewHolder;
 import com.zhoukp.moments.adapter.viewholder.VideoViewHolder;
 import com.zhoukp.moments.bean.ItemType;
 import com.zhoukp.moments.utils.LogUtil;
-import com.zhoukp.moments.view.NineGridlayout;
 
 import java.util.ArrayList;
 
@@ -78,30 +77,26 @@ public class KPRecyclerViewAdpdter2 extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * 为recyclerview的item绑定数据
      *
-     * @param holder
-     * @param position
+     * @param holder   viewHolder
+     * @param position 位置
      */
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         ItemType itemType = datas.get(position);
+        //判断viewHolder是那个类的实例
         if (holder instanceof ImageViewHolder) {
+            //1.holder是ImageViewHolder的实例
             final ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
             LogUtil.e("图片");
             imageViewHolder.tv_title.setText(itemType.getTitle());
-            imageViewHolder.imgs.setImagesData(itemType.getImages());
-
-            imageViewHolder.imgs.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    NineGridlayout gridlayout = (NineGridlayout) view;
-                    LogUtil.e("孩子数量为:" + gridlayout.getChildCount());
-                }
-            });
+            //imageViewHolder.imgs.setImagesData(itemType.getImages());
         } else if (holder instanceof VideoViewHolder) {
+            //2.holder是VideoViewHolder的实例
             final VideoViewHolder videoViewHolder = ((VideoViewHolder) holder);
             LogUtil.e("视频");
-            videoViewHolder.jc_videoplayer.setUp(itemType.getVideoUrl(), itemType.getThumbnailUrl(), null);
+//            videoViewHolder.jc_videoplayer.setUp(itemType.getVideoUrl(), itemType.getThumbnailUrl(), null);
         } else if (holder instanceof BaseViewHolder) {
+            //3.holder是BaseViewHolder的实例
             LogUtil.e("文本");
             final BaseViewHolder baseViewHolder = (BaseViewHolder) holder;
             baseViewHolder.tv_title.setText(itemType.getTitle());

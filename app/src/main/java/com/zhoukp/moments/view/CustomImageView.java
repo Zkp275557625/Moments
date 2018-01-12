@@ -47,24 +47,21 @@ public class CustomImageView extends ImageView {
                 if (drawable != null) {
                     drawable.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                 }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                Drawable drawableUp = getDrawable();
+                if (drawableUp != null) {
+                    drawableUp.mutate().clearColorFilter();
+                }
                 Intent intent = new Intent(context, PictureActivity.class);
                 intent.putExtra("url", url);
                 intent.putExtra("isFromNet", !url.contains("file:///android_asset/"));
                 context.startActivity(intent);
                 break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                Drawable drawableUp = getDrawable();
-                if (drawableUp != null) {
-                    drawableUp.mutate().clearColorFilter();
-                }
-                break;
             default:
                 break;
         }
-
         return super.onTouchEvent(event);
     }
 
@@ -77,9 +74,10 @@ public class CustomImageView extends ImageView {
 
     @Override
     public void onDetachedFromWindow() {
-//        Picasso.with(getContext()).cancelRequest(this);
+        //取消图片加载请求
+        Picasso.with(getContext()).cancelRequest(this);
         //清除Glide所有图片加载请求
-        Glide.clear(this);
+//        Glide.clear(this);
         isAttachedToWindow = false;
         setImageBitmap(null);
         super.onDetachedFromWindow();
@@ -91,7 +89,7 @@ public class CustomImageView extends ImageView {
             this.url = url;
             if (isAttachedToWindow) {
                 //使用Glide加载图片
-                Glide.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
+                Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
             }
         }
     }

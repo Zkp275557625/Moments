@@ -13,10 +13,14 @@ import android.view.View;
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
+    /**
+     * item的间距
+     */
     private int space;
 
     public SpacesItemDecoration(int space) {
         this.space = space;
+
     }
 
     @Override
