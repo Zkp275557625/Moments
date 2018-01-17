@@ -13,7 +13,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="10dp">
 
-        <com.zhoukp.moments.view.RoundRectImageView
+        <!--<com.zhoukp.moments.view.RoundRectImageView-->
+            <!--android:id="@+id/iv_head"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@drawable/icon_head" />-->
+
+        <ImageView
             android:id="@+id/iv_head"
             android:layout_width="40dp"
             android:layout_height="40dp"

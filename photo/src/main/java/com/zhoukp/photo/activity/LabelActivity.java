@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhoukp.photo.R;
@@ -17,25 +18,28 @@ import java.util.ArrayList;
 /**
  * @author zhoukp
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LabelActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private KpGridLayout gridLayout;
+    protected KpGridLayout gridLayout;
     private KpGridLayoutAdd gridLayoutAdd;
     public Button btnSumbit;
-    private TextView tvDone, tvNoLabel;
+    protected TextView tvDone, tvNoLabel;
+    private ImageView ivBack;
 
-    private ArrayList<String> texts;
+    protected ArrayList<String> texts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
+        initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initViews();
+        refreshViews();
     }
 
     private void initViews() {
@@ -49,7 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSumbit.setOnClickListener(this);
         tvNoLabel = (TextView) findViewById(R.id.tvNoLabel);
         tvNoLabel.setOnClickListener(this);
+        ivBack = (ImageView) findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(this);
+    }
 
+    private void initData() {
         texts = new ArrayList<>();
         texts.add("下雪啦");
         texts.add("元旦快乐");
@@ -58,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         texts.add("放假啦");
         texts.add("下班啦");
         gridLayout.setItems(texts);
+    }
+
+    private void refreshViews() {
         Intent intent = getIntent();
         String[] split = intent.getStringExtra("KpGridLayout").split("##");
         gridLayout.setSelectes(split);
@@ -71,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvDone:
-                if (tvDone.getText().toString().equals("完成")) {
+                if ("完成".equals(tvDone.getText().toString())) {
                     tvDone.setText("编辑");
                     btnSumbit.setSelected(true);
                     btnSumbit.setEnabled(true);
@@ -95,13 +106,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnSumbit:
                 //带回逻辑的处理
-                startActivity(new Intent(MainActivity.this, PublishActivity.class));
+                startActivity(new Intent(LabelActivity.this, PublishActivity.class));
                 finish();
                 break;
             case R.id.tvNoLabel:
                 //清空所有已选标签
-                CacheUtils.putArrayList(MainActivity.this, "KpGridLayout", new ArrayList<String>());
-                CacheUtils.putArrayList(MainActivity.this, "gridLayoutAdd", new ArrayList<String>());
+                CacheUtils.putArrayList(LabelActivity.this, "KpGridLayout", new ArrayList<String>());
+                CacheUtils.putArrayList(LabelActivity.this, "gridLayoutAdd", new ArrayList<String>());
+                finish();
+                break;
+            case R.id.ivBack:
+                //关闭当前页面
                 finish();
                 break;
             default:

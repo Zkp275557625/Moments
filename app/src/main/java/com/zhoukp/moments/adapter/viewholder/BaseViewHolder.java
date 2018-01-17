@@ -37,7 +37,7 @@ import java.util.ArrayList;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder {
     //头像
-    public RoundRectImageView iv_head;
+    public ImageView iv_head;
     //姓名，时间，标题
     public TextView tv_name, tv_time, tv_title;
     //浏览次数，评论次数，分享次数，点赞次数
@@ -57,7 +57,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(View itemView, final Context context) {
         super(itemView);
-        iv_head = (RoundRectImageView) itemView.findViewById(R.id.iv_head);
+        iv_head = (ImageView) itemView.findViewById(R.id.iv_head);
         tv_name = (TextView) itemView.findViewById(R.id.tv_name);
         tv_time = (TextView) itemView.findViewById(R.id.tv_time);
         tv_title = (TextView) itemView.findViewById(R.id.tv_title);

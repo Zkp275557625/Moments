@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="bottom"
+        android:paddingLeft="15dp"
+        android:text="神州鹰"
+        android:textColor="@color/colorGray5"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:paddingLeft="15dp"
+        android:text="望海路14号楼之二附近"
+        android:textSize="14sp" />
+
+</LinearLayout>

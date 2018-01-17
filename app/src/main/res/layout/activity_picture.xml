@@ -36,7 +36,7 @@
 
     </RelativeLayout>
 
-    <com.zhoukp.moments.view.ImageViewTouch
+    <com.zhoukp.moments.view.imageviewtouch.ImageViewTouch
         android:id="@+id/image"
         android:scaleType="fitXY"
         android:layout_width="match_parent"

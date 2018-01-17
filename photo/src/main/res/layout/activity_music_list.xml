@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title" />
+
+    <TextView
+        android:id="@+id/tvNoMusic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:drawableRight="@drawable/selected_setector"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="25dp"
+        android:text="无背景音乐"
+        android:textColor="@color/location_text_bg"
+        android:textSize="16sp" />
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/white" />-->
+
+    <ExpandableListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:childDivider="@color/white"
+        android:divider="@color/white"
+        android:dividerHeight="10dp"
+        android:groupIndicator="@null"
+        android:listSelector="@color/white" />
+
+</LinearLayout>

@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 
 import com.zhoukp.moments.R;
 import com.zhoukp.moments.adapter.KPRecyclerViewAdpdter;
+import com.zhoukp.moments.adapter.KPRecyclerViewAdpdter3;
 import com.zhoukp.moments.adapter.ListViewAdapter;
 import com.zhoukp.moments.adapter.viewholder.BaseViewHolder;
 import com.zhoukp.moments.bean.NetDataBean;
+import com.zhoukp.moments.bean.TableDataBean;
 import com.zhoukp.moments.model.IMainView;
 import com.zhoukp.moments.model.MainPresenter;
 import com.zhoukp.moments.utils.LogUtil;
@@ -28,17 +30,18 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
  * 时间：2018/1/2 10:09
  * 邮箱：zhoukaiping@szy.cn
  * 作用：仿微信朋友圈多种类型item的列表展示
+ * @author zhoukp
  */
 public class MainActivity extends AppCompatActivity implements IMainView {
 
     private RecyclerView recyclerview;
-    private LinearLayoutManager manager;
-    private ListViewAdapter listViewAdapter;
-    private ArrayList<String> commemts;
-    private ArrayList<String> names;
+    protected LinearLayoutManager manager;
+    protected ListViewAdapter listViewAdapter;
+    protected ArrayList<String> commemts;
+    protected ArrayList<String> names;
 
     private MainPresenter presenter;
-    private KPRecyclerViewAdpdter adpdter;
+    private KPRecyclerViewAdpdter3 adpdter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     }
 
     private void initPresenter() {
-        presenter = new MainPresenter();
+        presenter = new MainPresenter(this);
         presenter.attach(this);
     }
 
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            BaseViewHolder viewHolder = null;
+            BaseViewHolder viewHolder;
             switch (requestCode) {
                 case 1:
                     //提交评论的逻辑处理
@@ -142,12 +145,23 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         presenter.detach();
     }
 
+//    @Override
+//    public void loadDataSuccess(final NetDataBean netDataBean) {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                adpdter = new KPRecyclerViewAdpdter(MainActivity.this, netDataBean.getList());
+//                recyclerview.setAdapter(adpdter);
+//            }
+//        });
+//    }
+
     @Override
-    public void loadDataSuccess(NetDataBean netDataBean) {
-        adpdter = new KPRecyclerViewAdpdter(MainActivity.this, netDataBean.getList());
+    public void loadDataSuccess2(final ArrayList<TableDataBean> dataBean) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                adpdter = new KPRecyclerViewAdpdter3(MainActivity.this, dataBean);
                 recyclerview.setAdapter(adpdter);
             }
         });

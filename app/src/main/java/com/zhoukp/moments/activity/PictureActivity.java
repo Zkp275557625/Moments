@@ -11,11 +11,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.zhoukp.moments.R;
-import com.zhoukp.moments.view.ImageViewTouch;
+import com.zhoukp.moments.view.imageviewtouch.ImageViewTouch;
 
 import java.io.IOException;
 import java.io.InputStream;

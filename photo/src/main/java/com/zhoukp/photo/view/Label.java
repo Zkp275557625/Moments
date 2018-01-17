@@ -49,8 +49,8 @@ public class Label extends RelativeLayout {
      */
     private void onCreate(Context context) {
         LayoutInflater.from(context).inflate(R.layout.label, this, true);
-        tvText = findViewById(R.id.tvText);
-        ivDelete = findViewById(R.id.ivDelete);
+        tvText = (TextView) findViewById(R.id.tvText);
+        ivDelete = (ImageView) findViewById(R.id.ivDelete);
     }
 
     /**

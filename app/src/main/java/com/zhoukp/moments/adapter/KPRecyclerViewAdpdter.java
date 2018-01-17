@@ -101,6 +101,7 @@ public class KPRecyclerViewAdpdter extends RecyclerView.Adapter<RecyclerView.Vie
     /**
      * 当前item滚动到屏幕不可见的位置时调用这个方法
      * （用于对recyclerview的优化）
+     *
      * @param holder viewHolder
      */
     @Override

@@ -14,6 +14,7 @@
             android:id="@+id/LlLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -31,11 +32,24 @@
         android:textColorHint="@color/colorGray3"
         android:textSize="15sp" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/icon_camera" />
+        android:layout_marginLeft="15dp">
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_camera" />
+
+        <com.zhoukp.photo.view.NineGridlayout
+            android:id="@+id/nineGridlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -50,6 +64,7 @@
         android:background="@color/colorGray1" />
 
     <RelativeLayout
+        android:id="@+id/rlPublish"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical">
@@ -58,13 +73,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:drawableLeft="@drawable/icon_at"
+            android:drawableLeft="@drawable/icon_at_selected"
             android:drawablePadding="10dp"
             android:text="发布对象"
             android:textColor="@color/colorGray5"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvPulish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -82,15 +98,17 @@
         android:background="@color/colorGray1" />
 
     <RelativeLayout
+        android:id="@+id/rlLocation"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:drawableLeft="@drawable/icon_address"
+            android:drawableLeft="@drawable/icon_address_normal"
             android:drawablePadding="10dp"
             android:text="所在位置"
             android:textColor="@color/colorGray5"
@@ -111,15 +129,17 @@
         android:background="@color/colorGray1" />
 
     <RelativeLayout
+        android:id="@+id/rlMusic"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/tvMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:drawableLeft="@drawable/icon_music"
+            android:drawableLeft="@drawable/icon_music_normal"
             android:drawablePadding="10dp"
             android:text="添加音乐"
             android:textColor="@color/colorGray5"

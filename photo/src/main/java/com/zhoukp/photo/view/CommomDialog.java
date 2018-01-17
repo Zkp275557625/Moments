@@ -46,10 +46,10 @@ public class CommomDialog extends Dialog implements View.OnClickListener {
     }
 
     private void initView() {
-        etContent = findViewById(R.id.etContent);
-        btnCancle = findViewById(R.id.btnCancle);
+        etContent = (EditText) findViewById(R.id.etContent);
+        btnCancle = (Button) findViewById(R.id.btnCancle);
         btnCancle.setOnClickListener(this);
-        btnSumbit = findViewById(R.id.btnSumbit);
+        btnSumbit = (Button) findViewById(R.id.btnSumbit);
         btnSumbit.setOnClickListener(this);
 
     }

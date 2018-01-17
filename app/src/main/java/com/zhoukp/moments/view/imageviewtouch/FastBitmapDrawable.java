@@ -1,4 +1,4 @@
-package com.zhoukp.moments.view;
+package com.zhoukp.moments.view.imageviewtouch;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

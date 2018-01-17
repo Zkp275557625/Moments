@@ -1,4 +1,6 @@
-package com.zhoukp.moments.view;
+package com.zhoukp.moments.view.imageviewtouch;
+
+import com.zhoukp.moments.view.imageviewtouch.Easing;
 
 public class Cubic implements Easing {
 

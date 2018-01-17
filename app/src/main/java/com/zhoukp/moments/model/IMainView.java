@@ -1,6 +1,8 @@
 package com.zhoukp.moments.model;
 
-import com.zhoukp.moments.bean.NetDataBean;
+import com.zhoukp.moments.bean.TableDataBean;
+
+import java.util.ArrayList;
 
 /**
  * 作者：zhoukp
@@ -10,10 +12,12 @@ import com.zhoukp.moments.bean.NetDataBean;
  */
 
 public interface IMainView {
-    /**
-     * 加载数据成功
-     *
-     * @param netDataBean 数据
-     */
-    void loadDataSuccess(NetDataBean netDataBean);
+//    /**
+//     * 加载数据成功
+//     *
+//     * @param netDataBean 数据
+//     */
+//    void loadDataSuccess(NetDataBean netDataBean);
+
+    void loadDataSuccess2(ArrayList<TableDataBean> dataBean);
 }
