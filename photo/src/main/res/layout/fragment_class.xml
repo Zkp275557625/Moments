@@ -64,7 +64,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/colorGray2"
                 android:textSize="15sp" />

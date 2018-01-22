@@ -72,11 +72,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         initViews();
-
     }
 
     private void initViews() {
-
         gridLayoutSelected = CacheUtils.getArrayList(this, "KpGridLayout");
         gridLayoutLabelName = CacheUtils.getArrayListStr(this, "KpGridLayout_labelName");
 
@@ -115,7 +113,6 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         //发布对象信息、
         rlPublish = (RelativeLayout) findViewById(R.id.rlPublish);
         tvPublish = (TextView) findViewById(R.id.tvPublish);
-
 
         lllabel = (LinearLayout) findViewById(R.id.LlLabel);
         lllabel.removeAllViews();

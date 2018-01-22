@@ -24,8 +24,8 @@
             android:drawablePadding="2dp"
             android:gravity="center_vertical"
             android:hint="搜索附近的位置"
+            android:maxLines="1"
             android:paddingLeft="5dp"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHighlight="@color/colorGray2"
             android:textSize="15sp" />
