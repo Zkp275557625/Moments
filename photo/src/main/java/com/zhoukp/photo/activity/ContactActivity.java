@@ -5,11 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.zhoukp.photo.R;
 import com.zhoukp.photo.activity.adapter.ViewPagerAdapter;
+import com.zhoukp.photo.activity.fragment.BaseFragment;
 import com.zhoukp.photo.activity.fragment.ClassFragment;
+import com.zhoukp.photo.activity.fragment.ContactFragment;
 import com.zhoukp.photo.utils.TabUtils;
 
 import java.util.ArrayList;
@@ -22,15 +25,15 @@ import java.util.ArrayList;
  * @author zhoukp
  */
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected ImageView ivBack;
     protected TabLayout tabLayout;
     protected ViewPager viewPager;
 
-    private ArrayList<ClassFragment> fragments;
-    private ArrayList<String> titles;
-    private ViewPagerAdapter adapter;
+    protected ArrayList<BaseFragment> fragments;
+    protected ArrayList<String> titles;
+    protected ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class ContactActivity extends AppCompatActivity {
         initViews();
 
         initVariables();
+
+        initEvent();
     }
 
     private void initViews() {
@@ -56,7 +61,7 @@ public class ContactActivity extends AppCompatActivity {
     private void initVariables() {
         fragments = new ArrayList<>();
         fragments.add(new ClassFragment());
-        fragments.add(new ClassFragment());
+        fragments.add(new ContactFragment());
 
         titles = new ArrayList<>();
         titles.add("班级");
@@ -65,5 +70,20 @@ public class ContactActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adapter);
         TabUtils.reflex(tabLayout);
+    }
+
+    private void initEvent() {
+        ivBack.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ivBack:
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 }

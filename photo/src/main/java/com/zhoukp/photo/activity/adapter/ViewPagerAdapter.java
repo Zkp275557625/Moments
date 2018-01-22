@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.zhoukp.photo.activity.fragment.BaseFragment;
 import com.zhoukp.photo.activity.fragment.ClassFragment;
 
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private final ArrayList<ClassFragment> fragments;
+    private final ArrayList<BaseFragment> fragments;
     private final ArrayList<String> titles;
 
-    public ViewPagerAdapter(FragmentManager fm, ArrayList<ClassFragment> fragments, ArrayList<String> titles) {
+    public ViewPagerAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments, ArrayList<String> titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;

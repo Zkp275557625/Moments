@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.baidu.location.Poi;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.zhoukp.photo.R;
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class PoiAdapter extends BaseAdapter {
 
     protected Context context;
-    protected List<PoiInfo> allPoi;
+    private List<PoiInfo> allPoi;
 
     public PoiAdapter(Context context, List<PoiInfo> allPoi) {
         this.context = context;

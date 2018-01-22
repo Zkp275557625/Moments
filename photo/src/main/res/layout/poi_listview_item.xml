@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
@@ -20,6 +21,7 @@
         android:layout_height="25dp"
         android:paddingLeft="15dp"
         android:text="望海路14号楼之二附近"
+        android:textColor="@color/colorGray2"
         android:textSize="14sp" />
 
 </LinearLayout>

@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/tvChildName"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:drawableLeft="@drawable/icon_selected_selector"
         android:drawablePadding="10dp"

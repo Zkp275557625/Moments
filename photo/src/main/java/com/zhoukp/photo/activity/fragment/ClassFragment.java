@@ -1,5 +1,7 @@
 package com.zhoukp.photo.activity.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
@@ -99,11 +101,9 @@ public class ClassFragment extends BaseFragment {
         children2.add(new ClassesInfo("小五班", false, true));
         classInfo2.setChildren(children2);
 
-
         groups = new ArrayList<>();
         groups.add(classInfo1);
         groups.add(classInfo2);
-
 
         adapter = new ClassListAdapter(context, groups);
         listView.setAdapter(adapter);
@@ -255,15 +255,6 @@ public class ClassFragment extends BaseFragment {
             }
         });
 
-        //对group点击的监听
-        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
-                LogUtil.e(groupPosition + "");
-                return false;
-            }
-        });
-
         adapter.setListener(new ClassListAdapter.onGroupSelectedListener() {
             @Override
             public void onGroupSelectedListener(int groupPosition) {
@@ -299,6 +290,18 @@ public class ClassFragment extends BaseFragment {
                 Message msg = new Message();
                 msg.obj = result;
                 getHandler().sendMessage(msg);
+            }
+        });
+
+        btnSumbit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //确定按钮的逻辑处理
+                String text = tvClasses.getText().toString();
+                Intent intent = new Intent();
+                intent.putExtra("object", text);
+                context.setResult(Activity.RESULT_OK, intent);
+                context.finish();
             }
         });
     }

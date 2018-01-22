@@ -10,18 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
@@ -30,7 +27,7 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.poi.PoiSortType;
 import com.zhoukp.photo.R;
 import com.zhoukp.photo.activity.adapter.PoiAdapter;
-import com.zhoukp.photo.utils.LogUtil;
+import com.zhoukp.photo.view.FreshListView;
 
 import java.util.List;
 
@@ -41,12 +38,12 @@ import java.util.List;
  * for：显示当前poi
  */
 
-public class PoiActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class PoiActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, FreshListView.OnRefreshListener {
 
     protected ImageView ivBack;
     protected EditText etSearch;
     protected TextView tvTitle, tvDone, tvHideLocation;
-    protected ListView listView;
+    protected FreshListView listView;
 
     protected PoiAdapter adapter;
 
@@ -81,7 +78,7 @@ public class PoiActivity extends AppCompatActivity implements View.OnClickListen
         etSearch = (EditText) findViewById(R.id.etSearch);
         tvHideLocation = (TextView) findViewById(R.id.tvHideLocation);
         tvHideLocation.setSelected(true);
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (FreshListView) findViewById(R.id.listView);
     }
 
     private void initVariables() {
@@ -118,6 +115,8 @@ public class PoiActivity extends AppCompatActivity implements View.OnClickListen
 
         mPoiSearch = PoiSearch.newInstance();
         mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
+
+        listView.setOnRefreshListener(this);
     }
 
     @Override
@@ -145,32 +144,55 @@ public class PoiActivity extends AppCompatActivity implements View.OnClickListen
         finish();
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
+    @Override
+    public void onPullDownRefresh() {
+        //下拉刷新，再次请求数据
+        getPOI(1, 10);
+    }
+
+    /**
+     * 百度地图api获取poi列表
+     *
+     * @param index 页面索引
+     * @param num   数量
+     */
+    private void getPOI(int index, int num) {
+        //POI附近检索参数设置类
+        PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
+        //搜索关键字，比如：银行、网吧、餐厅等
+        nearbySearchOption.keyword("餐厅");
+        //搜索的位置点
+        nearbySearchOption.location(new LatLng(latitude, longitude));
+        //搜索覆盖半径
+        nearbySearchOption.radius(1000);
+        //搜索类型，从近至远
+        nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
+        //查询第几页：POI量可能会很多，会有分页查询
+        nearbySearchOption.pageNum(index);
+        //设置每页查询的个数，默认10个
+        nearbySearchOption.pageCapacity(num);
+        //查询
+        mPoiSearch.searchNearby(nearbySearchOption);
+    }
+
+    @Override
+    public void onLoadMore() {
+        //加载更多数据
+        getPOI(1, 10 + listView.getCount());
+    }
+
+    private class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
             //获取poi列表
-            List<Poi> poiList = location.getPoiList();
+//            List<Poi> poiList = location.getPoiList();
             //获取城市
             city = location.getCity();
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
             //POI附近检索参数设置类
-            PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
-            //搜索关键字，比如：银行、网吧、餐厅等
-            nearbySearchOption.keyword("餐厅");
-            //搜索的位置点
-            nearbySearchOption.location(new LatLng(latitude, longitude));
-            //搜索覆盖半径
-            nearbySearchOption.radius(1000);
-            //搜索类型，从近至远
-            nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
-            //查询第几页：POI量可能会很多，会有分页查询
-            nearbySearchOption.pageNum(10);
-            //设置每页查询的个数，默认10个
-            nearbySearchOption.pageCapacity(10);
-            //查询
-            mPoiSearch.searchNearby(nearbySearchOption);
+            getPOI(1, 10);
         }
     }
 
@@ -185,14 +207,9 @@ public class PoiActivity extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void run() {
                         listView.setAdapter(adapter);
+                        listView.onRefreshFinish(true);
                     }
                 });
-//                for (int i = 0; i < allPoi.size(); i++) {
-//                    LogUtil.e(allPoi.get(i).name + "," + allPoi.get(i).uid + "," + allPoi.get(i).address + ","
-//                            + allPoi.get(i).city + "," + allPoi.get(i).phoneNum + "," + allPoi.get(i).postCode + ","
-//                            + allPoi.get(i).type + "," + allPoi.get(i).location.toString() + "," + allPoi.get(i).hasCaterDetails + ","
-//                            + allPoi.get(i).isPano);
-//                }
             }
         }
 
@@ -219,22 +236,7 @@ public class PoiActivity extends AppCompatActivity implements View.OnClickListen
 
         @Override
         public void afterTextChanged(Editable editable) {
-            //POI附近检索参数设置类
-            PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
-            //搜索关键字，比如：银行、网吧、餐厅等
-            nearbySearchOption.keyword(etSearch.getText().toString());
-            //搜索的位置点
-            nearbySearchOption.location(new LatLng(latitude, longitude));
-            //搜索覆盖半径
-            nearbySearchOption.radius(1000);
-            //搜索类型，从近至远
-            nearbySearchOption.sortType(PoiSortType.distance_from_near_to_far);
-            //查询第几页：POI量可能会很多，会有分页查询
-            nearbySearchOption.pageNum(10);
-            //设置每页查询的个数，默认10个
-            nearbySearchOption.pageCapacity(10);
-            //查询
-            mPoiSearch.searchNearby(nearbySearchOption);
+            getPOI(1, 10);
         }
     };
 }

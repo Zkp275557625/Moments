@@ -122,7 +122,7 @@ public class KpGridLayout extends GridLayout {
 
         textView.setBackgroundResource(R.drawable.label_bg_selector);
         textView.setTextSize(textSize);
-        textView.setTextColor(getResources().getColorStateList(R.color.label_text_bg, null));
+        textView.setTextColor(getResources().getColorStateList(R.color.label_text_bg));
         textView.setOnClickListener(onClickListener);
 
         return textView;

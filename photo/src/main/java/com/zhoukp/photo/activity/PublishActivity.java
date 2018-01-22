@@ -32,10 +32,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * auther：zhoukp
  * time：2018/1/12 14:11
  * mail：zhoukaiping@szy.cn
  * for：发布朋友圈页面
+ *
+ * @author zhoukp
  */
 
 public class PublishActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,7 +50,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     protected ImageView ivPhoto;
     private NineGridlayout nineGridlayout;
     private RelativeLayout rlLocation, rlMusic, rlPublish;
-    private TextView tvLocation, tvMusic, tvPulish;
+    private TextView tvLocation, tvMusic, tvPublish;
 
     protected ArrayList<String> labelName;
     protected ArrayList<Integer> selected;
@@ -93,7 +94,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         for (int i = 0; i < selected.size(); i++) {
             LogUtil.e(selected.get(i) + "");
             Label label = newItemView();
-            label.tvText.setText(labelName.get(selected.size() - selected.get(i) - 1));
+            label.tvText.setText(labelName.get(selected.get(i)));
             lllabel.addView(label, 0);
         }
     }
@@ -113,7 +114,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         tvMusic = (TextView) findViewById(R.id.tvMusic);
         //发布对象信息、
         rlPublish = (RelativeLayout) findViewById(R.id.rlPublish);
-        tvPulish = (TextView) findViewById(R.id.tvPulish);
+        tvPublish = (TextView) findViewById(R.id.tvPublish);
 
 
         lllabel = (LinearLayout) findViewById(R.id.LlLabel);
@@ -221,7 +222,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.rlPublish:
                 intent = new Intent(PublishActivity.this, ContactActivity.class);
-                startActivityForResult(intent,  CONTACT);
+                startActivityForResult(intent, CONTACT);
                 break;
             default:
                 break;
@@ -319,10 +320,25 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                         tvMusic.setText(music);
                     }
                     break;
+                case CONTACT:
+                    //选择发送对象回调
+                    String object = data.getStringExtra("object");
+                    if (!TextUtils.isEmpty(object)) {
+                        tvPublish.setText(object);
+                    }
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtil.e("onPause");
+        CacheUtils.putArrayList(PublishActivity.this, "KpGridLayout", new ArrayList<String>());
+        CacheUtils.putArrayList(PublishActivity.this, "gridLayoutAdd", new ArrayList<String>());
     }
 
     /**

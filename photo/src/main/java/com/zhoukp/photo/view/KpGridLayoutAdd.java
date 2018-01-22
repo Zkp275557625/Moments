@@ -146,7 +146,7 @@ public class KpGridLayoutAdd extends FlowLayout {
 
         textView.setBackgroundResource(R.drawable.add_label_bg);
         textView.setTextSize(textSize);
-        textView.setTextColor(getResources().getColor(R.color.colorBlack, null));
+        textView.setTextColor(getResources().getColor(R.color.colorBlack));
 
         return textView;
     }
